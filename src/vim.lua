@@ -1,4 +1,4 @@
-MODE_COMMAND = {
+MODE_COMMAND = {
   id = 'command_mode',
   keys_mode = 'command_mode',
   status = 'COMMAND MODE',
@@ -203,6 +203,7 @@ keys.ex_mode = {
 }
 
 keys['cc'] = {enter_mode, MODE_COMMAND}
+keys['esc'] = {enter_mode, MODE_COMMAND}
 
 events.connect(events.BUFFER_NEW, function()
   enter_mode(MODE_COMMAND)

@@ -222,3 +222,7 @@ keys['esc'] = {enter_mode, MODE_COMMAND}
 events.connect(events.BUFFER_NEW, function()
   enter_mode(MODE_COMMAND)
 end)
+
+events.connect(events.VIEW_NEW, function()
+  enter_mode(MODE_COMMAND)
+end)

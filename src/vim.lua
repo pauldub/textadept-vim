@@ -203,7 +203,11 @@ function handle_ex_command(cmd)
     quit()
   elseif cmd == 'w' then
     io.save_file()
+  elseif cmd == 'wq' then
+    io.save_file()
+    quit()
   else
+    -- FIXME: MODE_COMMAND#on_enter changes the statusbar text right away so this is not visible.
     ui.statusbar_text = 'unknown ex command \'' .. cmd .. '\''
   end
 end
@@ -216,9 +220,12 @@ keys.ex_mode = {
   end
 }
 
+-- Exit insert mode
+
 keys['cc'] = {enter_mode, MODE_COMMAND}
 keys['esc'] = {enter_mode, MODE_COMMAND}
 
+-- Enter command mode by default.
 events.connect(events.BUFFER_NEW, function()
   enter_mode(MODE_COMMAND)
 end)

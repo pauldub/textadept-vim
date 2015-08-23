@@ -1,5 +1,4 @@
-MODE_COMMAND = {
-  id = 'command_mode',
+MODE_COMMAND = {
   keys_mode = 'command_mode',
   status = 'COMMAND MODE',
   on_enter = function()
@@ -11,7 +10,6 @@
 }
 
 MODE_INSERT = {
-  name = 'insert_mode',
   status = 'INSERT MODE',
   on_enter = function()
     if not CURSES then
@@ -21,7 +19,6 @@ MODE_INSERT = {
 }
 
 MODE_EX = {
-  name = 'ex_mode',
   keys_mode = 'ex_mode',
   status = 'EX MODE',
   on_enter = function()

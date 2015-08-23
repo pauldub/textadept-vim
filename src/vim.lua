@@ -119,9 +119,9 @@ keys.command_mode = {
                 buffer.new_line()
               end).then_insert,
   ['O'] = cmd(function()
-                buffer.line_up()
-                buffer.line_end()
+                buffer.home()
                 buffer.new_line()
+                buffer.line_up()
               end).then_insert,
   ['x'] = function()     
     buffer.delete_range(buffer.current_pos, 1)

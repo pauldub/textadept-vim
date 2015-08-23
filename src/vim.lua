@@ -118,9 +118,15 @@ keys.command_mode = {
   -- Quickmarks
   ['\''] = quickmarks,
   ['m'] = quickmarks:assign_keymap(),
+  ['H'] = function()
+    buffer.goto_pos(buffer.position_from_line(buffer.first_visible_line))
+  end,
   ['M'] = function()
     local middle_line = math.floor(buffer.first_visible_line + (buffer.lines_on_screen / 2))
     buffer.goto_pos(buffer.position_from_line(middle_line))
+  end,
+  ['L'] = function()
+    buffer.goto_line(buffer.first_visible_line + buffer.lines_on_screen - 1)
   end,
   -- Editing keys
   ['o'] = cmd(function()

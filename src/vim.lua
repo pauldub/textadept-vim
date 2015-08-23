@@ -1,3 +1,5 @@
+local math = require('math')
+
 MODE_COMMAND = {
   keys_mode = 'command_mode',
   status = 'COMMAND MODE',
@@ -103,6 +105,8 @@ keys.command_mode = {
   ['e'] = buffer.word_right_end, -- move to the end of the word
   ['cf'] = buffer.page_down, -- scroll 1 page down
   ['cb'] = buffer.page_up, -- scroll 1 page up
+  ['ce'] = buffer.line_scroll_down,
+  ['cy'] = buffer.line_scroll_up,
   ['G'] = buffer.document_end,
   ['I'] = cmd(buffer.vc_home).then_insert, -- scroll to the end
   ['$'] = buffer.line_end,
@@ -110,9 +114,14 @@ keys.command_mode = {
   ['0'] = buffer.home,
   ['A'] = cmd(buffer.line_end).then_insert,
   ['a'] = cmd(buffer.char_right).then_insert,
+  ['M'] = buffer.vertical_center_caret,
   -- Quickmarks
   ['\''] = quickmarks,
   ['m'] = quickmarks:assign_keymap(),
+  ['M'] = function()
+    local middle_line = math.floor(buffer.first_visible_line + (buffer.lines_on_screen / 2))
+    buffer.goto_pos(buffer.position_from_line(middle_line))
+  end,
   -- Editing keys
   ['o'] = cmd(function()
                 buffer.line_end()
@@ -188,6 +197,8 @@ function handle_ex_command(cmd)
     quit()
   elseif cmd == 'w' then
     io.save_file()
+  else
+    ui.statusbar_text = 'unknown ex command \'' .. cmd .. '\''
   end
 end
 

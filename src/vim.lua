@@ -60,8 +60,21 @@ local Quickmarks = {}
 Quickmarks.mt = {
   __index = function(quickmarks, key)
     return function()
-      local pos = quickmarks.assigned[key]
-      if pos ~= nil then
+      local mark = quickmarks.assigned[key]
+      if mark ~= nil then
+        local buffer_index = mark[1]
+        local pos = mark[2]
+        local buf = _BUFFERS[buffer_index]
+        
+        ui.print(buffer_index)
+        
+        if buf == nil then
+          ui.statusbar_text = 'quickmark ' .. tostring(key) .. ' is a dead buffer'
+          return
+        end
+        
+        view:goto_buffer(buffer_index)
+        
         buffer.goto_pos(pos)
       else
         ui.statusbar_text = 'quickmark ' .. tostring(key) .. ' does not exist'
@@ -80,7 +93,7 @@ function Quickmarks.new()
       setmetatable(t, {
         __index = function(table, key)
           return function(self)
-            marks[key] = buffer.current_pos
+            marks[key] = {_BUFFERS[buffer], buffer.current_pos}
           end
         end
       })

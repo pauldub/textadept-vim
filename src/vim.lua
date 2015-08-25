@@ -189,7 +189,7 @@ keys.command_mode = {
     ['o'] = function()
       local current_line = buffer.line_from_position(buffer.current_pos)
       -- ui.print('current_pos: ', buffer.current_pos, ' current_line: ', current_line)
-      buffer.fold_line(current_line, buffer.FOLDACTION_MODE_EXPAND)
+      buffer.fold_line(current_line, buffer.FOLDACTION_EXPAND)
     end, -- unfold current line
     ['c'] = function()
       local current_line = buffer.line_from_position(buffer.current_pos)
@@ -239,6 +239,7 @@ keys['cc'] = {enter_mode, MODE_COMMAND}
 keys['esc'] = {enter_mode, MODE_COMMAND}
 
 -- Enter command mode by default.
+
 events.connect(events.BUFFER_NEW, function()
   enter_mode(MODE_COMMAND)
 end)
